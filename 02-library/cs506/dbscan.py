@@ -57,12 +57,16 @@ class DBC(object):
         assignments = [0 for _ in range(len(self.dataset))]
         cluster = 1
 
-        for P_index in range(len(self.dataset)):
-            if assignments[P_index] != 0:
+        for P in range(len(self.dataset)):
+            
+            if assignments[P] != 0:
+                # already part of a cluster
                 continue
 
-            if len(self.epsilon_neighborhood(P_index)) >= self.min_pts:
-                assignments = self.explore_and_assign_eps_neighborhood(P_index, cluster, assignments)
+            if len(self.epsilon_neighborhood(P)) >= self.min_pts:
+                # core point
+                assignments = self.explore_and_assign_eps_neighborhood(
+                    P, cluster, assignments)
 
             cluster += 1
 
